@@ -3,10 +3,17 @@ on: push
 
 jobs:
     build:
+        continue-on-error: true
         strategy:
             matrix:
                 node-version: [14,16,18]
                 operating-system: [ubuntu-latest]
+                include:
+                    - node-version: 20
+                      operating-system: ubuntu-latest
+                exclude:
+                    - node-version: 14
+                      operating-system: ubuntu-latest
         runs-on: ${{matrix.operating-system}}
         steps:
             - name: Get code
